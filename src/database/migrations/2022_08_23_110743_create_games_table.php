@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 60);
             $table->string('memo', 255)->nullable()->default(null);
+            $table->foreignId('user_id')->constrained('users');
             $table->tinyInteger('hardware_type')->nullable()->default(null);
             $table->tinyInteger('status_id')->nullable()->default(null);
             $table->date('start_at')->nullable()->default(null);
