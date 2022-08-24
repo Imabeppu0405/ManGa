@@ -5,15 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Game extends Model
+class Report extends Model
 {
     use HasFactory;
 
-    protected $table = "games";
+    protected $table = "reports";
 
     protected $fillable = [
-        'title',
-        'hardware_type',
-        'category_id',
+        'memo',
+        'game_id',
+        'user_id',
+        'status_id',
+        'start_at',
+        'end_at'
     ];
 }
