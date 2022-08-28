@@ -23,5 +23,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/home', [GameController::class, 'index']);
+Route::post('/home/save', [GameController::class, 'save']);
 
 require __DIR__.'/auth.php';

@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div x-data="{ open : false }" class="py-12">
+    <div x-data="{ open : false, id : '' }" class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex flex-wrap">
                 @if (isset($games))
@@ -20,7 +20,7 @@
                             </div>
                             <hr>
                             <div class="m-3 flex justify-center">
-                                <button @click="open = true" class="px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-500 hover:text-white" type="button" data-modal-toggle="registerModal">
+                                <button x-on:click="open = true; id='{{$game->id}}'" x-on:click="" class="px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-500 hover:text-white" type="button" data-modal-toggle="registerModal">
                                     登録する
                                 </button>
                             </div>
@@ -48,10 +48,11 @@
                     </div>
                     <!-- Modal body -->
                     <div class="p-6 space-y-6">
-                        <form class="space-y-6" action="#">
+                        <form id="registerForm" class="space-y-6" action="home/save" method="POST">
+                            @csrf
                             <div>
-                                <label for="status" class="block mb-2 text-sm font-medium text-gray-900">ステータス</label>
-                                <select id="countries" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <label for="status_id" class="block mb-2 text-sm font-medium text-gray-900">ステータス</label>
+                                <select id="status_id" name="status_id" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                     <option hidden>選択してください</option>
                                     @foreach(config("const.category_list") as $key => $category_list_item)
                                         <option value="{{ $key }}">{{ $category_list_item }}</option>
@@ -59,26 +60,49 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="start" class="block mb-2 text-sm font-medium text-gray-900">プレイ期間</label>
+                                <label for="start_at" class="block mb-2 text-sm font-medium text-gray-900">プレイ期間</label>
                                 <div class="flex items-center">
                                     <div class="relative">
-                                      <input name="start" type="date" class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="開始日">
+                                      <input id="start_at" name="start_at" type="date" class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="開始日">
                                     </div>
                                     <span class="mx-4 text-gray-500">to</span>
                                     <div class="relative">
-                                      <input name="end" type="date" class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="完了日">
+                                      <input id="end_at" name="end_at" type="date" class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="完了日">
                                     </div>
                                 </div>
                             </div>
                             <div>
                                 <label for="memo" class="block mb-2 text-sm font-medium text-gray-900">メモ</label>
-                                <textarea id="memo" rows="4" class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="メモを入力"></textarea>
+                                <textarea id="memo" name="memo" rows="4" class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="メモを入力"></textarea>
                             </div>
-                            <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">登録</button>
+                            <input hidden name="game_id" type="number" x-bind:value="id" >
+                            <input hidden name="user_id" type="number" value="{{ $user_id }}" >
+                            <button id="registerBtn" type="button" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">登録</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        const clickRegisterBtn = () => {
+            // 登録画面のフォーム内の値を取得
+            const postData = new FormData(document.getElementById("registerForm"));
+            fetch('home/save', {
+                method: 'POST',
+                body: postData
+            })
+            .then(response => response.json())
+            .then(response => {
+                console.log('ゲームID:' + response.game_id + 'への登録が完了しました');
+            })
+            .catch(error => {
+                console.log('登録に失敗');
+            })
+        }
+
+        document.getElementById('registerBtn').addEventListener('click', e => {
+            clickRegisterBtn();
+        });
+    </script>
 </x-app-layout>
