@@ -6,13 +6,24 @@ use App\Models\Game;
 use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller
 {
     public function index()
     {
+        $games = DB::table('games')
+            ->leftJoin('reports', function ($join) {
+                $join->on('games.id', '=', 'reports.game_id')
+                    ->where('reports.user_id', '=', Auth::id());
+            })
+            ->orderBy('games.id', 'DESC')
+            ->get([
+                'games.*',
+                'reports.status_id',
+            ]);
         $data = [
-            'games'    => Game::orderBy('id', 'DESC')->get(),
+            'games'   => $games,
             'user_id' => Auth::id()
         ];
         return view('home.index', $data);
