@@ -24,7 +24,7 @@
                                     <button type="button" class="px-2 py-1 text-gray-500 border border-gray-500 font-semibold rounded" disabled>登録済</button>
                                 @else
                                     <button x-on:click="open = true; id='{{$game->id}}'" x-on:click="" class="px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-500 hover:text-white" type="button" data-modal-toggle="registerModal">
-                                        登録する
+                                        変更する
                                     </button>
                                 @endif
                             </div>
