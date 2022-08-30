@@ -16,9 +16,10 @@ class AccountController extends Controller
                     ->where('reports.user_id', '=', Auth::id());
             })
             ->orderBy('reports.id', 'DESC')
+            ->select('reports.*', 'games.title', 'games.hardware_type', 'games.category_id')
             ->get();
         $data = [
-            'reports'   => $reports,
+            'reports' => $reports,
             'user_id' => Auth::id()
         ];
         return view('account.index', $data);

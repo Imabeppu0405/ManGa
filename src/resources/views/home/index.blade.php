@@ -7,7 +7,7 @@
 
     <div x-data="{ open : false, id : '' }" class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex flex-wrap">
+            <div class="flex flex-wrap justify-center">
                 @if (isset($games))
                     @foreach ($games as $game)
                         <div class="m-2 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
@@ -24,7 +24,7 @@
                                     <button type="button" class="px-2 py-1 text-gray-500 border border-gray-500 font-semibold rounded" disabled>登録済</button>
                                 @else
                                     <button x-on:click="open = true; id='{{$game->id}}'" x-on:click="" class="px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-500 hover:text-white" type="button" data-modal-toggle="registerModal">
-                                        変更する
+                                        登録する
                                     </button>
                                 @endif
                             </div>
@@ -58,8 +58,8 @@
                                 <label for="status_id" class="block mb-2 text-sm font-medium text-gray-900">ステータス</label>
                                 <select id="status_id" name="status_id" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                     <option hidden>選択してください</option>
-                                    @foreach(config("const.category_list") as $key => $category_list_item)
-                                        <option value="{{ $key }}">{{ $category_list_item }}</option>
+                                    @foreach(config("const.status_list") as $key => $status_list_item)
+                                        <option value="{{ $key }}">{{ $status_list_item }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -81,14 +81,14 @@
                             </div>
                             <input hidden name="game_id" type="number" x-bind:value="id" >
                             <input hidden name="user_id" type="number" value="{{ $user_id }}" >
-                            <button id="registerBtn" type="button" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">登録</button>
+                            <button id="registerBtn" type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">登録</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
+    {{-- <script>
         const clickRegisterBtn = () => {
             // 登録画面のフォーム内の値を取得
             const postData = new FormData(document.getElementById("registerForm"));
@@ -108,5 +108,5 @@
         document.getElementById('registerBtn').addEventListener('click', e => {
             clickRegisterBtn();
         });
-    </script>
+    </script> --}}
 </x-app-layout>

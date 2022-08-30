@@ -30,14 +30,15 @@ class GameController extends Controller
 
     public function save(Request $request)
     {
-        $res = Report::create([
+        Report::updateOrCreate(['id' => $request->input('report_id')], [
             'memo'      => $request->input('memo'),
             'game_id'   => $request->input('game_id'),
             'user_id'   => $request->input('user_id'),
-            'status_id' => $request->input('user_id'),
+            'status_id' => $request->input('status_id'),
             'start_at'  => $request->input('start_at'),
             'end_at'    => $request->input('end_at'),
         ]);
-        return json_encode($res);
+
+        return back();
     }
 }
