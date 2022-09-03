@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Game\MstGameDeleteRequest;
 use App\Http\Requests\Game\MstGameSaveRequest;
 use App\Models\Game;
 use Illuminate\Http\Request;
@@ -51,7 +52,7 @@ class GameController extends Controller
         return back();
     }
 
-    public function delete(Request $request)
+    public function delete(MstGameDeleteRequest $request)
     {
         $id = $request->input('id');
         Game::where('id', $id)->delete();

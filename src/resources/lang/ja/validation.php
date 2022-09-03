@@ -154,6 +154,7 @@ return [
     */
 
     'attributes' => [
+        'id'            => 'ID',
         'title'         => 'タイトル',
         'memo'          => 'メモ',
         'category_id'   => 'カテゴリ',
