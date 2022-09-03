@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Game\MstGameSaveRequest;
 use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +39,7 @@ class GameController extends Controller
         return view('mst.game.index', $data);
     }
 
-    public function save(Request $request)
+    public function save(MstGameSaveRequest $request)
     {
         Game::updateOrCreate(['id' => $request->input('id')], [
             'title'         => $request->input('title'),

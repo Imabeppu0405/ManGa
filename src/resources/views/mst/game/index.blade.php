@@ -6,6 +6,15 @@
     </x-slot>
     <div x-data="{ updateOrCreateOpen : false, data : {}, deleteOpen : false, deleteData : {} }" class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if ($errors->any())
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-800 p-4 text-lg" role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="m-2 p-6 w-full bg-white rounded-lg border border-gray-200 shadow-md">
                 <div class="flex justify-between pb-6 px-4">
                     <h1 class="text-xl font-bold">
