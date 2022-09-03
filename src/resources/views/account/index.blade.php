@@ -61,8 +61,8 @@
                     </div>
                 @endif
             </div>
-            <div x-show="open" id="registerModal" tabindex="-1" aria-hidden="true" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
-                <div class="relative p-4 w-full max-w-lg h-auto w-auto">
+            <div x-show="open" id="registerModal" tabindex="-1" aria-hidden="true" class="overflow-y-auto overflow-x-hidden bg-zinc-500/50 fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+                <div class="relative left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 p-4 w-full max-w-lg h-auto w-auto">
                     <!-- Modal content -->
                     <div @click.outside="open = false" class="relative bg-white rounded-lg shadow">
                         <!-- Modal header -->
