@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Report\ReportSaveRequest;
 use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,7 @@ class ReportController extends Controller
         return view('account.index', $data);
     }
 
-    public function save(Request $request)
+    public function save(ReportSaveRequest $request)
     {
         Report::updateOrCreate(['id' => $request->input('report_id')], [
             'memo'      => $request->input('memo'),

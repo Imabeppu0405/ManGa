@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class MstGameSaveRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * ユーザが認証済みの場合のみにするか
      *
      * @return bool
      */
@@ -18,13 +18,18 @@ class MstGameSaveRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * バリデーションルールの設定
      *
      * @return array<string, mixed>
      */
     public function rules()
     {
         $rules = [
+            'id'            => [
+                'sometimes',
+                'required',
+                'integer'
+            ],
             'hardware_type' => [
                 'required',
                 'integer',
@@ -40,8 +45,8 @@ class MstGameSaveRequest extends FormRequest
             ],
         ];
 
-        // 更新時
         if($this->id) {
+            // 更新時
             return array_merge($rules, [
                 'title'         => [
                     'required',
@@ -50,6 +55,7 @@ class MstGameSaveRequest extends FormRequest
                 ]
             ]);
         } else {
+            // 新規追加時
             return array_merge($rules, [
                 'title'         => [
                     'required',

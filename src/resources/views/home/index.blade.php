@@ -7,6 +7,15 @@
 
     <div x-data="{ open : false, id : '' }" class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if ($errors->any())
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-800 p-4 text-lg" role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="flex flex-wrap justify-center">
                 @if (isset($games))
                     @foreach ($games as $game)
