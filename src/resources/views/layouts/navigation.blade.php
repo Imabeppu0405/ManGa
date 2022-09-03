@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('account')" :active="request()->routeIs('account')">
                         {{ __('アカウント') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('games')" :active="request()->routeIs('games')">
+                        {{ __('ゲーム管理') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -71,6 +74,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('account')" :active="request()->routeIs('account')">
                 {{ __('アカウント') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('games')" :active="request()->routeIs('games')">
+                {{ __('ゲーム管理') }}
             </x-responsive-nav-link>
         </div>
 

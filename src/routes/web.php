@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\GameController;
-use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,7 +24,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/home', [GameController::class, 'index'])->middleware(['auth'])->name('home');
-Route::get('/account', [AccountController::class, 'index'])->middleware(['auth'])->name('account');
-Route::post('/home/save', [GameController::class, 'save'])->middleware(['auth']);
+Route::get('/games', [GameController::class, 'mstIndex'])->middleware(['auth'])->name('games');
+Route::get('/account', [ReportController::class, 'index'])->middleware(['auth'])->name('account');
+Route::post('/home/save', [ReportController::class, 'save'])->middleware(['auth']);
 
 require __DIR__.'/auth.php';

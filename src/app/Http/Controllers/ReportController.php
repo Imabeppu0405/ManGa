@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class AccountController extends Controller
+class ReportController extends Controller
 {
     public function index()
     {
@@ -23,5 +24,19 @@ class AccountController extends Controller
             'user_id' => Auth::id()
         ];
         return view('account.index', $data);
+    }
+
+    public function save(Request $request)
+    {
+        Report::updateOrCreate(['id' => $request->input('report_id')], [
+            'memo'      => $request->input('memo'),
+            'game_id'   => $request->input('game_id'),
+            'user_id'   => $request->input('user_id'),
+            'status_id' => $request->input('status_id'),
+            'start_at'  => $request->input('start_at'),
+            'end_at'    => $request->input('end_at'),
+        ]);
+
+        return back();
     }
 }
