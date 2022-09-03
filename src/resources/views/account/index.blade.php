@@ -37,7 +37,19 @@
                                 </p>
                             </div>
                             <div class="m-3 flex justify-center">
-                                <button x-on:click="open = true; data={id: '{{$report->id}}', game_id: '{{ $report->game_id }}', status_id: '{{$report->status_id}}', start_at: '{{$report->start_at}}', end_at: '{{$report->end_at}}', memo: '{{$report->memo}}'}" class="px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-500 hover:text-white" type="button" data-modal-toggle="editModal">
+                                <button 
+                                    x-on:click="
+                                        open = true; 
+                                        data={  id: '{{$report->id}}', 
+                                                game_id: '{{ $report->game_id }}', 
+                                                status_id: '{{$report->status_id}}', 
+                                                start_at: '{{$report->start_at}}', 
+                                                end_at: '{{$report->end_at}}', 
+                                                memo: '{{$report->memo}}'}" 
+                                    class="px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-500 hover:text-white"
+                                    type="button" 
+                                    data-modal-toggle="editModal"
+                                >
                                     変更する
                                 </button>
                             </div>
@@ -64,7 +76,7 @@
                         </div>
                         <!-- Modal body -->
                         <div class="p-6 space-y-6">
-                            <form id="editForm" class="space-y-6" action="home/save" method="POST">
+                            <form id="editForm" class="space-y-6" action="report/save" method="POST">
                                 @csrf
                                 <div>
                                     <label for="status_id" class="block mb-2 text-sm font-medium text-gray-900">ステータス</label>

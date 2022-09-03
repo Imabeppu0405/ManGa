@@ -24,8 +24,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/home', [GameController::class, 'index'])->middleware(['auth'])->name('home');
-Route::get('/games', [GameController::class, 'mstIndex'])->middleware(['auth'])->name('games');
+Route::get('/mst/game', [GameController::class, 'mstIndex'])->middleware(['auth'])->name('mst/game');
+Route::post('/mst/game/save', [GameController::class, 'save'])->middleware(['auth']);
+Route::post('/mst/game/delete', [GameController::class, 'delete'])->middleware(['auth']);
 Route::get('/account', [ReportController::class, 'index'])->middleware(['auth'])->name('account');
-Route::post('/home/save', [ReportController::class, 'save'])->middleware(['auth']);
+Route::post('/report/save', [ReportController::class, 'save'])->middleware(['auth']);
 
 require __DIR__.'/auth.php';

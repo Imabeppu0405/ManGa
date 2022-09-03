@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -34,5 +36,24 @@ class GameController extends Controller
             'user_id' => Auth::id()
         ];
         return view('mst.game.index', $data);
+    }
+
+    public function save(Request $request)
+    {
+        Game::updateOrCreate(['id' => $request->input('id')], [
+            'title'         => $request->input('title'),
+            'memo'          => $request->input('memo'),
+            'hardware_type' => $request->input('hardware_type'),
+            'category_id'   => $request->input('category_id'),
+        ]);
+
+        return back();
+    }
+
+    public function delete(Request $request)
+    {
+        $id = $request->input('id');
+        Game::where('id', $id)->delete();
+        return back();
     }
 }
