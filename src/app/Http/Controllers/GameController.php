@@ -35,8 +35,7 @@ class GameController extends Controller
     {
         $games = DB::table('games')->orderBy('games.id', 'DESC')->get();
         $data = [
-            'games'   => $games,
-            'user_id' => Auth::id()
+            'games' => $games,
         ];
         return view('mst.game.index', $data);
     }
@@ -45,7 +44,7 @@ class GameController extends Controller
     {
         Game::updateOrCreate(['id' => $request->input('id')], [
             'title'         => $request->input('title'),
-            'memo'          => $request->input('memo'),
+            'link'          => $request->input('link'),
             'hardware_type' => $request->input('hardware_type'),
             'category_id'   => $request->input('category_id'),
         ]);

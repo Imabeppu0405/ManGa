@@ -35,18 +35,22 @@
                         <tr>
                           <th class="px-2 py-2 w-12">ID</th>
                           <th class="px-4 py-2 w-1/4">タイトル</th>
-                          <th class="px-4 py-2">メモ</th>
+                          <th class="px-4 py-2">リンク</th>
                           <th class="px-4 py-2 w-28">機種</th>
                           <th class="px-4 py-2 w-32">カテゴリ</th>
                           <th class="px-4 py-2 w-44">編集</th>
                         </tr>
-                      </thead>
+                    </thead>
                     <tbody>
                         @foreach($games as $game)
                             <tr>
                                 <td class="border px-4 py-2">{{ $game->id }}</td>
                                 <td class="border px-4 py-2">{{ $game->title }}</td>
-                                <td class="border px-4 py-2">{{ $game->memo ?? '-' }}</td>
+                                <td class="border px-4 py-2">
+                                    <a href="{{ $game->link ?? '#' }}" class="cursol-pointer text-blue-700 hover:text-blue-500">
+                                        {{ $game->link ?? '-' }}
+                                    </a>
+                                </td>
                                 <td class="border px-4 py-2">{{ config("const.hardware_list.{$game->hardware_type}") }}</td>
                                 <td class="border px-4 py-2">{{ config("const.category_list.{$game->category_id}") }}</td>
                                 <td class="border px-4 py-2">
@@ -58,7 +62,7 @@
                                                 title: '{{$game->title}}', 
                                                 category_id: '{{$game->category_id}}', 
                                                 hardware_type: '{{$game->hardware_type}}', 
-                                                memo: '{{$game->memo}}'}" 
+                                                link: '{{$game->link}}'}" 
                                         class="font-medium border border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white rounded px-4 py-2"
                                         type="button" 
                                         data-modal-toggle="createOrUpdateModal"
@@ -99,11 +103,11 @@
                             @csrf
                             <div class="mb-6">
                                 <label for="title" class="block mb-2 text-sm font-medium text-gray-700">タイトル</label>
-                                <input type="text" name="title" id="title" x-bind:value="data.title" class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="タイトル" required>
+                                <input type="text" name="title" id="title" x-bind:value="data.title" class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" placeholder="タイトル" required>
                             </div>
                             <div>
                                 <label for="hardware_type" class="block mb-2 text-sm font-medium text-gray-700">機種</label>
-                                <select id="hardware_type" name="hardware_type" class="border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                                <select id="hardware_type" name="hardware_type" class="border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" required>
                                     <option hidden>選択してください</option>
                                     @foreach(config("const.hardware_list") as $key => $hardware_list_item)
                                         <option value="{{ $key }}" x-bind:selected="data.hardware_type == {{ $key }}">{{ $hardware_list_item }}</option>
@@ -112,7 +116,7 @@
                             </div>
                             <div>
                                 <label for="category_id" class="block mb-2 text-sm font-medium text-gray-700">カテゴリ</label>
-                                <select id="category_id" name="category_id" class="border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                                <select id="category_id" name="category_id" class="border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" required>
                                     <option hidden>選択してください</option>
                                     @foreach(config("const.category_list") as $key => $category_list_item)
                                         <option value="{{ $key }}" x-bind:selected="data.category_id == {{ $key }}">{{ $category_list_item }}</option>
@@ -120,11 +124,11 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="memo" class="block mb-2 text-sm font-medium text-gray-700">メモ</label>
-                                <textarea id="memo" name="memo" x-bind:value="data.memo" rows="4" class="block p-2.5 w-full text-sm text-gray-700 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="メモを入力"></textarea>
+                                <label for="link" class="block mb-2 text-sm font-medium text-gray-700">リンク</label>
+                                <input type="text" id="link" name="link" x-bind:value="data.link" class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" placeholder="関連リンクを入力">
                             </div>
                             <input hidden name="id" type="number" x-bind:value="data.id">
-                            <button id="createOrUpdateBtn" type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">登録</button>
+                            <button id="createOrUpdateBtn" type="submit" class="w-full text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">登録</button>
                         </form>
                     </div>
                 </div>

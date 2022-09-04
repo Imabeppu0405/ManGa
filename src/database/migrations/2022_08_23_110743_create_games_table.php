@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->string('title', 60);
-            $table->string('memo', 255)->nullable()->default(null);
-            $table->tinyInteger('hardware_type')->nullable()->default(null);
-            $table->tinyInteger('category_id')->nullable()->default(null);
+            $table->string('link', 255)->nullable()->default(null);
+            $table->tinyInteger('hardware_type')->default(null);
+            $table->tinyInteger('category_id')->default(null);
             $table->timestamps();
         });
     }

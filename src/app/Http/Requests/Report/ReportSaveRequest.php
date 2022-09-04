@@ -49,6 +49,7 @@ class ReportSaveRequest extends FormRequest
                 'after:start_at'
             ],
             'memo'      => [
+                'nullable',
                 'max:255'
             ],
         ];

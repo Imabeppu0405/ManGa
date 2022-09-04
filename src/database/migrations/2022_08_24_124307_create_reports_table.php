@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('game_id')->constrained('games');
             $table->string('memo', 255)->nullable()->default(null);
-            $table->tinyInteger('status_id')->nullable()->default(null);
+            $table->tinyInteger('status_id')->default(null);
             $table->date('start_at')->nullable()->default(null);
             $table->date('end_at')->nullable()->default(null);
             $table->timestamps();

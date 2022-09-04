@@ -39,7 +39,8 @@ class MstGameSaveRequest extends FormRequest
                 'integer',
                 Rule::in(array_keys(config('const.category_list')))
             ],
-            'memo'          => [
+            'link'          => [
+                'url',
                 'max:255'
             ],
         ];

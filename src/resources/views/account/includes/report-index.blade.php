@@ -3,8 +3,8 @@
         @foreach ($reports as $report)
             <div class="m-2 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
                 <div class="flex justify-between items-start">
-                    <a href="#">
-                        <h5 class="mb-1 text-xl font-bold tracking-tight text-gray-700">{{ $report->title }}</h5>
+                    <a href="{{ $report->link ?? '#' }}" class="cursol-pointer text-gray-800 hover:text-gray-500">
+                        <h5 class="mb-1 text-xl tracking-tight">{{ $report->title }}</h5>
                     </a>
                     <button
                         x-on:click="

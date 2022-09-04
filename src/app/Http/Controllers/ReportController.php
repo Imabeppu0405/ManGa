@@ -17,12 +17,12 @@ class ReportController extends Controller
                     ->where('reports.user_id', '=', Auth::id());
             })
             ->orderBy('reports.id', 'DESC')
-            ->select('reports.*', 'games.title', 'games.hardware_type', 'games.category_id')
+            ->select('reports.*', 'games.title', 'games.link', 'games.hardware_type', 'games.category_id')
             ->get();
         $favorite_reports = $reports->where('status_id', 0);
         $stack_reports    = $reports->where('status_id', 1);
         $clear_reports    = $reports->where('status_id', 2);
-        
+
         $data = [
             'favorite_reports' => $favorite_reports,
             'stack_reports'    => $stack_reports,
