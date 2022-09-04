@@ -4,10 +4,11 @@
             {{ __('アカウント') }}
         </h2>
     </x-slot>
-    <div x-data="{ open : false, data : {}, activeTab: 0 }" class="py-12">
+    <div x-data="{ open : false, data : {}, activeTab: 1 }" class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <x-error-message />
             <div class="">
-                {{-- デフォルトアカウント画像 --}}
+                {{-- アカウント画像 --}}
                 <div class="bg-gray-200 rounded-full w-28 h-28 mx-auto">
                     <svg version="1.1" y="-250" x="-250" viewBox="-250 -250 500 500" height="112px" width="112px" style="overflow:visible">
                         <g transform="rotate(0,0,0)" stroke-linejoin="round" fill="#fff"><path stroke-linecap="butt" stroke-linejoin="round" stroke-width="0" stroke-opacity="0" stroke="rgb(0,0,0)" fill="rgb(103,119,136)" d="m70.386659-69.482701a70.386664 70.288536 0 0 1-70.38666 70.28853a70.386664 70.288536 0 0 1-70.386675-70.288531a70.386664 70.288536 0 0 1 70.386675-70.288545a70.386664 70.288536 0 0 1 70.386659 70.288545z" />
@@ -30,19 +31,19 @@
                         @endforeach
                     </ul>
                 </div>
-                <div x-show="activeTab===0">
+                <div x-show="activeTab===1">
                     @include('account.includes.report-index', [
                         'reports'     => $favorite_reports,
                         'is_favorite' => true,
                     ])
                 </div>
-                <div x-show="activeTab===1">
+                <div x-show="activeTab===2">
                     @include('account.includes.report-index', [
                         'reports'  => $stack_reports,
                         'is_stack' => true,
                     ])
                 </div>
-                <div x-show="activeTab===2">
+                <div x-show="activeTab===3">
                     @include('account.includes.report-index', [
                         'reports'  => $clear_reports,
                         'is_clear' => true,

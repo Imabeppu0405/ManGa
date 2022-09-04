@@ -41,7 +41,6 @@ class ReportSaveRequest extends FormRequest
             'start_at'  => [
                 'nullable',
                 'date',
-                'before:end_at'
             ],
             'end_at'  => [
                 'nullable',

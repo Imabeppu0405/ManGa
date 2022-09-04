@@ -26,9 +26,9 @@
                     @if(empty($is_favorite))
                         <span class="m-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-indigo-100 bg-indigo-500 rounded">
                             @if(isset($is_stack))
-                                プレイ開始：{{ $report->start_at }}
+                                プレイ開始：{{ $report->start_at ?? '未設定' }}
                             @elseif(isset($is_clear))
-                                クリア日：{{ $report->start_at }}
+                                クリア日：{{ $report->end_at ?? '未設定' }}
                             @endif
                         </span>
                     @endif

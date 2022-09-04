@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
+    /**
+     * アカウント画面の表示
+     *
+     * @return view
+     */
     public function index()
     {
         $reports = DB::table('reports')
@@ -19,9 +24,11 @@ class ReportController extends Controller
             ->orderBy('reports.id', 'DESC')
             ->select('reports.*', 'games.title', 'games.link', 'games.hardware_type', 'games.category_id')
             ->get();
-        $favorite_reports = $reports->where('status_id', 0);
-        $stack_reports    = $reports->where('status_id', 1);
-        $clear_reports    = $reports->where('status_id', 2);
+
+        // status_idによって分類する
+        $favorite_reports = $reports->where('status_id', 1);
+        $stack_reports    = $reports->where('status_id', 2);
+        $clear_reports    = $reports->where('status_id', 3);
 
         $data = [
             'favorite_reports' => $favorite_reports,
@@ -31,6 +38,12 @@ class ReportController extends Controller
         return view('account.index', $data);
     }
 
+    /**
+     * ゲーム記録を登録・編集する
+     *
+     * @param ReportSaveRequest $request
+     * @return void
+     */
     public function save(ReportSaveRequest $request)
     {
         Report::updateOrCreate(['id' => $request->input('report_id')], [

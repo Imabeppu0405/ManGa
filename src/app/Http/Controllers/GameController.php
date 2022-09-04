@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller
 {
+    /**
+     * home画面の表示
+     *
+     * @param GameSearchRequest $request
+     * @return view
+     */
     public function index(GameSearchRequest $request)
     {
         // 検索条件の取得
@@ -55,6 +61,11 @@ class GameController extends Controller
         return view('home.index', $data);
     }
 
+    /**
+     * ゲーム管理画面の表示
+     *
+     * @return view
+     */
     public function mstIndex()
     {
         $games = DB::table('games')->orderBy('games.id', 'DESC')->get();
@@ -64,6 +75,12 @@ class GameController extends Controller
         return view('mst.game.index', $data);
     }
 
+    /**
+     * ゲーム管理画面にて、ゲームを登録・編集する
+     *
+     * @param MstGameSaveRequest $request
+     * @return void
+     */
     public function save(MstGameSaveRequest $request)
     {
         Game::updateOrCreate(['id' => $request->input('id')], [
@@ -76,6 +93,12 @@ class GameController extends Controller
         return back();
     }
 
+    /**
+     * ゲーム管理画面にて、ゲームを削除する
+     *
+     * @param MstGameDeleteRequest $request
+     * @return void
+     */
     public function delete(MstGameDeleteRequest $request)
     {
         $id = $request->input('id');
