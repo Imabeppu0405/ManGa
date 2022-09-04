@@ -17,7 +17,7 @@
                 </div>
             @endif
             <div class="flex flex-wrap justify-center">
-                @if (isset($games))
+                @if ($games->isNotEmpty())
                     @foreach ($games as $game)
                         <div class="m-2 pt-6 px-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
                             <div class="text-center">

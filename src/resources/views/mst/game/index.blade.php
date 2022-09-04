@@ -1,9 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('ゲーム管理') }}
-        </h2>
-    </x-slot>
     <div x-data="{ updateOrCreateOpen : false, data : {}, deleteOpen : false, deleteData : {} }" class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if ($errors->any())
@@ -30,58 +25,64 @@
                         ゲーム登録
                     </button>
                 </div>
-                <table class="w-full">
-                    <thead>
-                        <tr>
-                          <th class="px-2 py-2 w-12">ID</th>
-                          <th class="px-4 py-2 w-1/4">タイトル</th>
-                          <th class="px-4 py-2">リンク</th>
-                          <th class="px-4 py-2 w-28">機種</th>
-                          <th class="px-4 py-2 w-32">カテゴリ</th>
-                          <th class="px-4 py-2 w-44">編集</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($games as $game)
+                @if ($games->isNotEmpty())
+                    <table class="w-full">
+                        <thead>
                             <tr>
-                                <td class="border px-4 py-2">{{ $game->id }}</td>
-                                <td class="border px-4 py-2">{{ $game->title }}</td>
-                                <td class="border px-4 py-2">
-                                    <a href="{{ $game->link ?? '#' }}" class="cursol-pointer text-blue-700 hover:text-blue-500">
-                                        {{ $game->link ?? '-' }}
-                                    </a>
-                                </td>
-                                <td class="border px-4 py-2">{{ config("const.hardware_list.{$game->hardware_type}") }}</td>
-                                <td class="border px-4 py-2">{{ config("const.category_list.{$game->category_id}") }}</td>
-                                <td class="border px-4 py-2">
-                                    <button
-                                        x-on:click="
-                                            updateOrCreateOpen = true; 
-                                            data= { 
-                                                id: '{{$game->id}}', 
-                                                title: '{{$game->title}}', 
-                                                category_id: '{{$game->category_id}}', 
-                                                hardware_type: '{{$game->hardware_type}}', 
-                                                link: '{{$game->link}}'}" 
-                                        class="font-medium border border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white rounded px-4 py-2"
-                                        type="button" 
-                                        data-modal-toggle="createOrUpdateModal"
-                                    >編集</button>
-                                    <button 
-                                        x-on:click="
-                                            deleteOpen = true; 
-                                            deleteData= { 
-                                                id: '{{$game->id}}', 
-                                                title: '{{$game->title}}'}" 
-                                        class="font-medium border border-rose-500 text-rose-500 hover:bg-red-500 hover:text-white rounded px-4 py-2"
-                                        type="button"
-                                        data-modal-toggle="deleteModal"
-                                    >削除</button>
-                                </td>
+                            <th class="px-2 py-2 w-12">ID</th>
+                            <th class="px-4 py-2 w-1/4">タイトル</th>
+                            <th class="px-4 py-2">リンク</th>
+                            <th class="px-4 py-2 w-28">機種</th>
+                            <th class="px-4 py-2 w-32">カテゴリ</th>
+                            <th class="px-4 py-2 w-44">編集</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach($games as $game)
+                                <tr>
+                                    <td class="border px-4 py-2">{{ $game->id }}</td>
+                                    <td class="border px-4 py-2">{{ $game->title }}</td>
+                                    <td class="border px-4 py-2">
+                                        <a href="{{ $game->link ?? '#' }}" class="cursol-pointer text-blue-700 hover:text-blue-500">
+                                            {{ $game->link ?? '-' }}
+                                        </a>
+                                    </td>
+                                    <td class="border px-4 py-2">{{ config("const.hardware_list.{$game->hardware_type}") }}</td>
+                                    <td class="border px-4 py-2">{{ config("const.category_list.{$game->category_id}") }}</td>
+                                    <td class="border px-4 py-2">
+                                        <button
+                                            x-on:click="
+                                                updateOrCreateOpen = true; 
+                                                data= { 
+                                                    id: '{{$game->id}}', 
+                                                    title: '{{$game->title}}', 
+                                                    category_id: '{{$game->category_id}}', 
+                                                    hardware_type: '{{$game->hardware_type}}', 
+                                                    link: '{{$game->link}}'}" 
+                                            class="font-medium border border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white rounded px-4 py-2"
+                                            type="button" 
+                                            data-modal-toggle="createOrUpdateModal"
+                                        >編集</button>
+                                        <button 
+                                            x-on:click="
+                                                deleteOpen = true; 
+                                                deleteData= { 
+                                                    id: '{{$game->id}}', 
+                                                    title: '{{$game->title}}'}" 
+                                            class="font-medium border border-rose-500 text-rose-500 hover:bg-red-500 hover:text-white rounded px-4 py-2"
+                                            type="button"
+                                            data-modal-toggle="deleteModal"
+                                        >削除</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <div class="p-6 text-gray-700">
+                        登録されている記録はありません
+                    </div>
+                @endif
             </div>
         </div>
         <div x-show="updateOrCreateOpen" id="createOrUpdateModal" tabindex="-1" aria-hidden="true" class="overflow-y-auto overflow-x-hidden bg-zinc-500/50 fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">

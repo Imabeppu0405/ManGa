@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -31,9 +31,9 @@
                 @csrf
 
                 <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    {{ __('Log Out') }}
+                    {{ __('ログアウト') }}
                 </button>
             </form>
         </div>
     </x-auth-card>
-</x-guest-layout>
+</x-app-layout>

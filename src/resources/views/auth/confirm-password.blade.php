@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -7,7 +7,7 @@
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+            {{ __('確認のため、パスワードを再度入力してください.') }}
         </div>
 
         <!-- Validation Errors -->
@@ -28,9 +28,9 @@
 
             <div class="flex justify-end mt-4">
                 <x-button>
-                    {{ __('Confirm') }}
+                    {{ __('確認') }}
                 </x-button>
             </div>
         </form>
     </x-auth-card>
-</x-guest-layout>
+</x-app-layout>

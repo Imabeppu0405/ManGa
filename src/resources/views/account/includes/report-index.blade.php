@@ -1,5 +1,5 @@
 <div class="flex flex-wrap justify-center">
-    @if (isset($reports))
+    @if ($reports->isNotEmpty())
         @foreach ($reports as $report)
             <div class="m-2 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
                 <div class="flex justify-between items-start">
@@ -43,27 +43,10 @@
                         @endif
                     </p>
                 </div>
-                {{-- <div class="m-3 flex justify-center">
-                    <button 
-                        x-on:click="
-                            open = true; 
-                            data={  id: '{{$report->id}}', 
-                                    game_id: '{{ $report->game_id }}', 
-                                    status_id: '{{$report->status_id}}', 
-                                    start_at: '{{$report->start_at}}', 
-                                    end_at: '{{$report->end_at}}', 
-                                    memo: '{{$report->memo}}'}" 
-                        class="px-2 py-1 text-green-500 border border-green-500 font-semibold rounded hover:bg-green-500 hover:text-white"
-                        type="button" 
-                        data-modal-toggle="editModal"
-                    >
-                        変更する
-                    </button>
-                </div> --}}
             </div>
         @endforeach
     @else
-        <div class="p-6 bg-white border-b border-gray-200">
+        <div class="p-6 text-gray-700">
             登録されている記録はありません
         </div>
     @endif
