@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Report\ReportSaveRequest;
 use App\Models\Report;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -20,9 +19,14 @@ class ReportController extends Controller
             ->orderBy('reports.id', 'DESC')
             ->select('reports.*', 'games.title', 'games.hardware_type', 'games.category_id')
             ->get();
+        $favorite_reports = $reports->where('status_id', 0);
+        $stack_reports    = $reports->where('status_id', 1);
+        $clear_reports    = $reports->where('status_id', 2);
+        
         $data = [
-            'reports' => $reports,
-            'user_id' => Auth::id()
+            'favorite_reports' => $favorite_reports,
+            'stack_reports'    => $stack_reports,
+            'clear_reports'    => $clear_reports,
         ];
         return view('account.index', $data);
     }
@@ -32,7 +36,7 @@ class ReportController extends Controller
         Report::updateOrCreate(['id' => $request->input('report_id')], [
             'memo'      => $request->input('memo'),
             'game_id'   => $request->input('game_id'),
-            'user_id'   => $request->input('user_id'),
+            'user_id'   => Auth::id(),
             'status_id' => $request->input('status_id'),
             'start_at'  => $request->input('start_at'),
             'end_at'    => $request->input('end_at'),
