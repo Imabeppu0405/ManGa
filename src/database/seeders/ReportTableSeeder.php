@@ -19,7 +19,7 @@ class ReportTableSeeder extends Seeder
             'memo'          => 'コントローラ必須',
             'game_id'       => 1,
             'user_id'       => 1,
-            'status_id'     => 0,
+            'status_id'     => 1,
             'start_at'      => now(),
             'end_at'        => now()
         ]);
@@ -28,7 +28,7 @@ class ReportTableSeeder extends Seeder
             'memo'          => 'コントローラはいらない',
             'game_id'       => 2,
             'user_id'       => 1,
-            'status_id'     => 1,
+            'status_id'     => 2,
             'start_at'      => now(),
             'end_at'        => now()
         ]);

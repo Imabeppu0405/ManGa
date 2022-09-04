@@ -17,14 +17,14 @@ class GamesTableSeeder extends Seeder
     {
         DB::table('games')->insert([
             'title'         => 'テストゲーム1',
-            'hardware_type' => 0,
-            'category_id'   => 0,
+            'hardware_type' => 1,
+            'category_id'   => 1,
         ]);
 
         DB::table('games')->insert([
             'title'         => 'テストゲーム2',
-            'hardware_type' => 1,
-            'category_id'   => 1,
+            'hardware_type' => 2,
+            'category_id'   => 2,
         ]);
     }
 }

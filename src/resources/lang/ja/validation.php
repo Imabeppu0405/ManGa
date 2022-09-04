@@ -156,6 +156,7 @@ return [
     'attributes' => [
         'id'            => 'ID',
         'title'         => 'タイトル',
+        'link'          => 'link',
         'memo'          => 'メモ',
         'category_id'   => 'カテゴリ',
         'hardware_type' => '機種',

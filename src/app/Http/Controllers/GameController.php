@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Game\GameSearchRequest;
 use App\Http\Requests\Game\MstGameDeleteRequest;
 use App\Http\Requests\Game\MstGameSaveRequest;
 use App\Models\Game;
@@ -11,22 +12,45 @@ use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller
 {
-    public function index()
+    public function index(GameSearchRequest $request)
     {
-        $games = DB::table('games')
-            ->leftJoin('reports', function ($join) {
+        // 検索条件の取得
+        $title         = $request->input('title');
+        $category_id   = $request->input('category_id');
+        $hardware_type = $request->input('hardware_type');
+
+        $query = Game::query();
+
+        // 一覧取得のベースのクエリを作成
+        $query->leftJoin('reports', function ($join) {
                 $join->on('games.id', '=', 'reports.game_id')
                     ->where('reports.user_id', '=', Auth::id());
             })
             ->orderBy('reports.status_id')
-            ->orderBy('games.id', 'DESC')
-            ->get([
-                'games.*',
-                'reports.status_id',
-            ]);
+            ->orderBy('games.id', 'DESC');
+        
+        // 検索内容で絞り込む
+        if($title) {
+            $query->where('games.title', 'LIKE', '%'.$title.'%');
+        }
+
+        if($category_id) {
+            $query->where('games.category_id', 'LIKE', $category_id);
+        }
+
+        if($hardware_type) {
+            $query->where('games.hardware_type', 'LIKE', $hardware_type);
+        }
+
+        $games = $query->select('games.*', 'reports.status_id')->get();
+
         $data = [
-            'games'   => $games,
-            'user_id' => Auth::id()
+            'games'        => $games,
+            'search_param' => [
+                'title'         => $title,
+                'category_id'   => $category_id,
+                'hardware_type' => $hardware_type
+            ]
         ];
         return view('home.index', $data);
     }

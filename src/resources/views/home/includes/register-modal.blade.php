@@ -18,7 +18,7 @@
                     <div>
                         <label for="status_id" class="block mb-2 text-sm font-medium text-gray-700">ステータス</label>
                         <select id="status_id" name="status_id" class="border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                            <option hidden>選択してください</option>
+                            <option value="" hidden>選択してください</option>
                             @foreach(config("const.status_list") as $key => $status_list_item)
                                 <option value="{{ $key }}">{{ $status_list_item }}</option>
                             @endforeach
@@ -41,7 +41,6 @@
                         <textarea id="memo" name="memo" rows="4" class="block p-2.5 w-full text-sm text-gray-700 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="メモを入力"></textarea>
                     </div>
                     <input hidden name="game_id" type="number" x-bind:value="id" >
-                    <input hidden name="user_id" type="number" value="{{ $user_id }}" >
                     <button id="registerBtn" type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">登録</button>
                 </form>
             </div>

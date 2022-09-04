@@ -40,6 +40,7 @@ class MstGameSaveRequest extends FormRequest
                 Rule::in(array_keys(config('const.category_list')))
             ],
             'link'          => [
+                'nullable',
                 'url',
                 'max:255'
             ],

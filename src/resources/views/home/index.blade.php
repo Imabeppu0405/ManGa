@@ -16,6 +16,11 @@
                     </ul>
                 </div>
             @endif
+            
+            @include('home.includes.search-form', [
+                'search_param' => $search_param
+            ])
+
             <div class="flex flex-wrap justify-center">
                 @if ($games->isNotEmpty())
                     @foreach ($games as $game)
@@ -41,7 +46,7 @@
                         </div>
                     @endforeach
                 @else
-                    <div class="p-6 bg-white border-b border-gray-200">
+                    <div class="p-6 border-b border-gray-200">
                         登録されているゲームはありません
                     </div>
                 @endif

@@ -6,7 +6,7 @@
                     <p class="text-indigo-500 md:text-lg xl:text-xl font-semibold mb-4 md:mb-6">Let's manage your Game</p>
             
                     <div class="w-56 mx-auto">
-                        <img class="w-100" src="{{asset('img/hero.png')}}">
+                        <img class="w-100" src="{{ asset('img/hero.png') }}">
                     </div>
     
                     <div class="w-full flex flex-col sm:flex-row sm:justify-center gap-2.5">
