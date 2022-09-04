@@ -26,8 +26,7 @@ class MstGameSaveRequest extends FormRequest
     {
         $rules = [
             'id'            => [
-                'sometimes',
-                'required',
+                'nullable',
                 'integer'
             ],
             'hardware_type' => [

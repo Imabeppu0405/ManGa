@@ -26,8 +26,7 @@ class ReportSaveRequest extends FormRequest
     {
         return [
             'report_id' => [
-                'sometimes',
-                'required',
+                'nullable',
                 'integer'
             ],
             'game_id'   => [
@@ -40,10 +39,12 @@ class ReportSaveRequest extends FormRequest
                 Rule::in(array_keys(config('const.status_list')))
             ],
             'start_at'  => [
+                'nullable',
                 'date',
                 'before:end_at'
             ],
             'end_at'  => [
+                'nullable',
                 'date',
                 'after:start_at'
             ],

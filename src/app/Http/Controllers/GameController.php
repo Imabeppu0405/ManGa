@@ -18,6 +18,7 @@ class GameController extends Controller
                 $join->on('games.id', '=', 'reports.game_id')
                     ->where('reports.user_id', '=', Auth::id());
             })
+            ->orderBy('reports.status_id')
             ->orderBy('games.id', 'DESC')
             ->get([
                 'games.*',
