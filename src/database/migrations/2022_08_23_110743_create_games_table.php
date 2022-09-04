@@ -20,6 +20,7 @@ return new class extends Migration
             $table->tinyInteger('hardware_type')->default(null);
             $table->tinyInteger('category_id')->default(null);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

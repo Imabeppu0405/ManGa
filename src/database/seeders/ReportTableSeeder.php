@@ -16,21 +16,17 @@ class ReportTableSeeder extends Seeder
     public function run()
     {
         DB::table('reports')->insert([
-            'memo'          => 'コントローラ必須',
+            'memo'          => 'ローグライク要素もあり、面白そう',
             'game_id'       => 1,
             'user_id'       => 1,
             'status_id'     => 1,
-            'start_at'      => now(),
-            'end_at'        => now()
         ]);
 
         DB::table('reports')->insert([
-            'memo'          => 'コントローラはいらない',
             'game_id'       => 2,
             'user_id'       => 1,
             'status_id'     => 2,
             'start_at'      => now(),
-            'end_at'        => now()
         ]);
     }
 }

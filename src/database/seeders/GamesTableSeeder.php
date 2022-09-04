@@ -16,13 +16,21 @@ class GamesTableSeeder extends Seeder
     public function run()
     {
         DB::table('games')->insert([
-            'title'         => 'テストゲーム1',
+            'title'         => 'gunfire reborn',
+            'link'          => 'https://store.steampowered.com/app/1217060/Gunfire_Reborn/?l=japanese',
             'hardware_type' => 1,
             'category_id'   => 1,
         ]);
 
         DB::table('games')->insert([
-            'title'         => 'テストゲーム2',
+            'title'         => 'ゼノブレイド３',
+            'link'          => 'https://www.nintendo.co.jp/switch/az3ha/index.html',
+            'hardware_type' => 2,
+            'category_id'   => 3,
+        ]);
+
+        DB::table('games')->insert([
+            'title'         => 'マリオ',
             'hardware_type' => 2,
             'category_id'   => 2,
         ]);

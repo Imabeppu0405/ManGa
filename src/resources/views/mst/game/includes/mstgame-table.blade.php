@@ -21,13 +21,13 @@
                 <th class="px-4 py-2 w-1/4">タイトル</th>
                 <th class="px-4 py-2">リンク</th>
                 <th class="px-4 py-2 w-28">機種</th>
-                <th class="px-4 py-2 w-32">カテゴリ</th>
-                <th class="px-4 py-2 w-44">編集</th>
+                <th class="px-4 py-2 w-40">カテゴリ</th>
+                <th class="px-4 py-2 w-80">編集</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($games as $game)
-                    <tr>
+                    <tr class="{{ isset($game->deleted_at) ? 'bg-gray-300' : '' }}">
                         <td class="border px-4 py-2">{{ $game->id }}</td>
                         <td class="border px-4 py-2">{{ $game->title }}</td>
                         <td class="border px-4 py-2">
@@ -37,30 +37,34 @@
                         </td>
                         <td class="border px-4 py-2">{{ config("const.hardware_list.{$game->hardware_type}") }}</td>
                         <td class="border px-4 py-2">{{ config("const.category_list.{$game->category_id}") }}</td>
-                        <td class="border px-4 py-2">
-                            <button
-                                x-on:click="
-                                    updateOrCreateOpen = true; 
-                                    data= { 
-                                        id: '{{$game->id}}', 
-                                        title: '{{$game->title}}', 
-                                        category_id: '{{$game->category_id}}', 
-                                        hardware_type: '{{$game->hardware_type}}', 
-                                        link: '{{$game->link}}'}" 
-                                class="font-medium border border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white rounded px-4 py-2"
-                                type="button" 
-                                data-modal-toggle="createOrUpdateModal"
-                            >編集</button>
-                            <button 
-                                x-on:click="
-                                    deleteOpen = true; 
-                                    deleteData= { 
-                                        id: '{{$game->id}}', 
-                                        title: '{{$game->title}}'}" 
-                                class="font-medium border border-rose-500 text-rose-500 hover:bg-red-500 hover:text-white rounded px-4 py-2"
-                                type="button"
-                                data-modal-toggle="deleteModal"
-                            >削除</button>
+                        <td class="border px-1 py-2">
+                            @if(is_null($game->deleted_at))
+                                <button
+                                    x-on:click="
+                                        updateOrCreateOpen = true; 
+                                        data= { 
+                                            id: '{{$game->id}}', 
+                                            title: '{{$game->title}}', 
+                                            category_id: '{{$game->category_id}}', 
+                                            hardware_type: '{{$game->hardware_type}}', 
+                                            link: '{{$game->link}}'}" 
+                                    class="font-medium border border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white rounded px-4 py-2"
+                                    type="button" 
+                                    data-modal-toggle="createOrUpdateModal"
+                                >編集</button>
+                                <button 
+                                    x-on:click="
+                                        deleteOpen = true; 
+                                        deleteData= { 
+                                            id: '{{$game->id}}', 
+                                            title: '{{$game->title}}'}" 
+                                    class="font-medium border border-rose-500 text-rose-500 hover:bg-red-500 hover:text-white rounded px-4 py-2"
+                                    type="button"
+                                    data-modal-toggle="deleteModal"
+                                >削除</button>
+                            @else
+                                <span>-</span>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

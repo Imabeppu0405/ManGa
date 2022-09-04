@@ -68,7 +68,10 @@ class GameController extends Controller
      */
     public function mstIndex()
     {
-        $games = DB::table('games')->orderBy('games.id', 'DESC')->get();
+        $games = DB::table('games')
+            ->orderBy('deleted_at')
+            ->orderBy('id', 'DESC')
+            ->get();
         $data = [
             'games' => $games,
         ];
@@ -94,7 +97,7 @@ class GameController extends Controller
     }
 
     /**
-     * ゲーム管理画面にて、ゲームを削除する
+     * ゲーム管理画面にて、ゲームを論理削除する
      *
      * @param MstGameDeleteRequest $request
      * @return void
