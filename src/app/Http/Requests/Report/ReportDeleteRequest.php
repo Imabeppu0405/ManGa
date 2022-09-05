@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Game;
+namespace App\Http\Requests\Report;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MstGameDeleteRequest extends FormRequest
+class ReportDeleteRequest extends FormRequest
 {
     /**
      * ユーザが認証済みの場合のみにするか

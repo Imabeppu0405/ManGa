@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Report\ReportDeleteRequest;
 use App\Http\Requests\Report\ReportSaveRequest;
 use App\Models\Report;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $reports = DB::table('reports')
+        $reports = Report::query()
             ->join('games', function ($join) {
                 $join->on('reports.game_id', '=', 'games.id')
                     ->where('reports.user_id', '=', Auth::id());
@@ -55,6 +56,19 @@ class ReportController extends Controller
             'end_at'    => $request->input('end_at'),
         ]);
 
+        return back();
+    }
+
+    /**
+     * ゲーム記録を論理削除する
+     *
+     * @param ReportDeleteRequest $request
+     * @return void
+     */
+    public function delete(ReportDeleteRequest $request)
+    {
+        $id = $request->input('id');
+        Report::where('id', $id)->delete();
         return back();
     }
 }

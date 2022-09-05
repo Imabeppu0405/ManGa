@@ -6,19 +6,30 @@
                     <a href="{{ $report->link ?? '#' }}" class="cursol-pointer text-gray-800 hover:text-gray-500">
                         <h5 class="mb-1 text-xl tracking-tight">{{ $report->title }}</h5>
                     </a>
-                    <button
-                        x-on:click="
-                        editOpen = true; 
-                        data={  id: '{{$report->id}}', 
-                                game_id: '{{ $report->game_id }}', 
-                                status_id: '{{$report->status_id}}', 
-                                start_at: '{{$report->start_at}}', 
-                                end_at: '{{$report->end_at}}', 
-                                memo: '{{$report->memo}}'}" 
-                        class="fa-solid fa-pen-to-square text-xl text-emerald-500 hover:text-emerald-300 "
-                        type="button" 
-                        data-modal-toggle="editModal"
-                    ></button>
+                    <div>
+                        <button
+                            x-on:click="
+                            editOpen = true; 
+                            data={  id: '{{$report->id}}', 
+                                    game_id: '{{ $report->game_id }}', 
+                                    status_id: '{{$report->status_id}}', 
+                                    start_at: '{{$report->start_at}}', 
+                                    end_at: '{{$report->end_at}}', 
+                                    memo: '{{$report->memo}}'}" 
+                            class="fa-solid fa-pen-to-square text-xl text-emerald-500 hover:text-emerald-300 mx-1"
+                            type="button" 
+                            data-modal-toggle="editModal"
+                        ></button>
+                        <button
+                            x-on:click="
+                            deleteOpen = true; 
+                            deleteData={  id: '{{$report->id}}', 
+                                          title: '{{ $report->title }}'}" 
+                            class="fa-solid fa-trash text-xl text-rose-500 hover:text-rose-300 mx-1"
+                            type="button" 
+                            data-modal-toggle="deleteModal"
+                        ></button>
+                    </div>
                 </div>
                 <div class="flex justify-center">
                     <span class="m-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-rose-100 bg-rose-500 rounded">{{ config("const.hardware_list.{$report->hardware_type}") }}</span>
