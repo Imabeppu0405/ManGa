@@ -19,4 +19,12 @@ class Game extends Model
         'hardware_type',
         'category_id',
     ];
+
+    /**
+     * ゲームに紐づく記録を取得
+     */
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'game_id', 'id');
+    }
 }

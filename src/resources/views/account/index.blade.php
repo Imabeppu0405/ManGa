@@ -21,6 +21,20 @@
                     <div class="text-gray-400 md:text-lg font-bold text-center">{{ Auth::user()->email }}</div>
                 </div>
             </div>
+            <div class="flex justify-center p-6">
+                <div class="px-4">
+                    <span class="text-6xl text-indigo-400">{{ $favorite_counts }}</span>
+                    <span class="text-gray-400 pl-2">気になる！</span> 
+                </div>
+                <div class="px-4">
+                    <span class="text-6xl text-indigo-400">{{ $stack_counts }}</span>
+                    <span class="text-gray-400 pl-2">プレイ中</span> 
+                </div>
+                <div class="px-4">
+                    <span class="text-6xl text-indigo-400">{{ $clear_counts }}</span>
+                    <span class="text-gray-400 pl-2">クリア！</span> 
+                </div>
+            </div>
             <div>
                 <div>
                     <ul class="flex justify-center items-center my-4">

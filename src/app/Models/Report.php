@@ -21,4 +21,12 @@ class Report extends Model
         'start_at',
         'end_at'
     ];
+
+    /**
+     * ゲームに紐づく記録を取得
+     */
+    public function games()
+    {
+        return $this->belongsTo(Game::class, 'game_id', 'id');
+    }
 }

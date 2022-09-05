@@ -35,6 +35,9 @@ class ReportController extends Controller
             'favorite_reports' => $favorite_reports,
             'stack_reports'    => $stack_reports,
             'clear_reports'    => $clear_reports,
+            'favorite_counts'  => $favorite_reports->count(),
+            'stack_counts'     => $stack_reports->count(),
+            'clear_counts'     => $clear_reports->count(),
         ];
         return view('account.index', $data);
     }
