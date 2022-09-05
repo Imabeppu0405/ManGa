@@ -8,7 +8,7 @@
                     </a>
                     <button
                         x-on:click="
-                        open = true; 
+                        editOpen = true; 
                         data={  id: '{{$report->id}}', 
                                 game_id: '{{ $report->game_id }}', 
                                 status_id: '{{$report->status_id}}', 

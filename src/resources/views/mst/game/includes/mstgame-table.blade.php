@@ -5,7 +5,7 @@
         </h1>
         <button 
             x-on:click="
-            updateOrCreateOpen = true; 
+            editOpen = true; 
             data = {}" 
             class="font-medium bg-indigo-500 hover:bg-indigo-600 text-white rounded px-4 py-2 w-52"
             type="button" 
@@ -41,7 +41,7 @@
                             @if(is_null($game->deleted_at))
                                 <button
                                     x-on:click="
-                                        updateOrCreateOpen = true; 
+                                        editOpen = true; 
                                         data= { 
                                             id: '{{$game->id}}', 
                                             title: '{{$game->title}}', 

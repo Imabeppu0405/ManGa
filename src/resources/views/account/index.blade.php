@@ -4,7 +4,7 @@
             {{ __('アカウント') }}
         </h2>
     </x-slot>
-    <div x-data="{ open : false, data : {}, activeTab: 1 }" class="py-12">
+    <div x-data="{ editOpen : false, data : {}, activeTab: 1 }" class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-error-message />
             <div class="">

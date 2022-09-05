@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div x-data="{ open : false, id : '' }" class="py-12">
+    <div x-data="{ editOpen : false, id : '' }" class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-error-message />
             
@@ -30,7 +30,7 @@
                                 @if (isset($game->status_id))
                                     <div class="px-2 text-gray-500 font-semiboldd" disabled>登録済：{{ config("const.status_list.{$game->status_id}") }}</div>
                                 @else
-                                    <button x-on:click="open = true; id='{{$game->id}}'" x-on:click="" class="px-2 py-1 text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-500 hover:text-white" type="button" data-modal-toggle="registerModal">
+                                    <button x-on:click="editOpen = true; id='{{$game->id}}'" x-on:click="" class="px-2 py-1 text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-500 hover:text-white" type="button" data-modal-toggle="registerModal">
                                         登録する
                                     </button>
                                 @endif
