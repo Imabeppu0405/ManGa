@@ -50,6 +50,15 @@ class GameController extends Controller
 
         $games = $query->select('games.*', 'reports.status_id')->get();
 
+        // sql(title=オ, category_id=2でAuth::id=1の人が検索した場合のSQL)
+        // SELECT g.*, r.id FROM games as g
+        //     LEFT JOIN reports as r 
+        //         ON g.id = r.id 
+        //         AND r.user_id = 1 
+        //     WHERE g.title LIKE '%オ%'
+        //         AND g.category_id LIKE 2 
+        //     ORDER BY r.status_id, g.id DESC;
+
         $data = [
             'games'        => $games,
             'search_param' => [

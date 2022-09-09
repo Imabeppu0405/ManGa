@@ -25,11 +25,19 @@ class ReportController extends Controller
             ->orderBy('reports.id', 'DESC')
             ->select('reports.*', 'games.title', 'games.link', 'games.hardware_type', 'games.category_id')
             ->get();
+            
+        //sql(user_id = 1の場合)
+        // SELECT r.*, g.title, g.link, g.hardware_type, g.category_id FROM reports as r
+        //     JOIN games as g 
+        //         ON r.id = g.id and r.user_id = 1 
+        //     ORDER BY r.id DESC;
 
         // status_idによって分類する
         $favorite_reports = $reports->where('status_id', 1);
         $stack_reports    = $reports->where('status_id', 2);
         $clear_reports    = $reports->where('status_id', 3);
+
+        
 
         $data = [
             'favorite_reports' => $favorite_reports,
