@@ -32,7 +32,7 @@ git@github.com:Imabeppu0405/ManGa.git
 ```
 docker compose up -d (--buildオプションが必要だったかも)
 ```
-3. composer自体はあったが、enderフォルダが作成されていなかったので、composer installを実行
+3. composer自体はあったが、venderフォルダが作成されていなかったので、composer installを実行
 ```
 docker compose exec app bash
 composer install
