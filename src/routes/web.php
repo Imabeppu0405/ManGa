@@ -17,25 +17,27 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('welcome');
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-// ゲーム一覧画面
-Route::get('/home', [GameController::class, 'index'])->middleware(['auth'])->name('home');
-// ゲーム管理画面
-Route::get('/mst/game', [GameController::class, 'mstIndex'])->middleware(['auth'])->name('mst/game');
-// ゲーム保存
-Route::post('/mst/game/save', [GameController::class, 'save'])->middleware(['auth']);
-// ゲーム削除処理
-Route::post('/mst/game/delete', [GameController::class, 'delete'])->middleware(['auth']);
-// アカウント画面
-Route::get('/account', [ReportController::class, 'index'])->middleware(['auth'])->name('account');
-// ゲーム記録保存
-Route::post('/report/save', [ReportController::class, 'save'])->middleware(['auth']);
-// ゲーム記録削除
-Route::post('/report/delete', [ReportController::class, 'delete'])->middleware(['auth']);
+Route::group(['middleware' => ['auth']], function () {
+    // ゲーム一覧画面
+    Route::get('/home', [GameController::class, 'index'])->name('home');
+    // ゲーム管理画面
+    Route::get('/mst/game', [GameController::class, 'mstIndex'])->name('mst/game');
+    // ゲーム保存
+    Route::post('/mst/game/save', [GameController::class, 'save']);
+    // ゲーム削除処理
+    Route::post('/mst/game/delete', [GameController::class, 'delete']);
+    // アカウント画面
+    Route::get('/account', [ReportController::class, 'index'])->name('account');
+    // ゲーム記録保存
+    Route::post('/report/save', [ReportController::class, 'save']);
+    // ゲーム記録削除
+    Route::post('/report/delete', [ReportController::class, 'delete']);
+});
 
 require __DIR__.'/auth.php';
