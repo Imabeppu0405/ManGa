@@ -3,7 +3,7 @@
         @csrf
         <div class="mb-6">
             <label for="title" class="block mb-2 text-sm font-medium text-gray-700">タイトル</label>
-            <input type="text" name="title" id="title" x-bind:value="data.title" class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" placeholder="タイトル" required>
+            <input type="text" name="title" id="title" x-bind:value="data.title" class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" placeholder="タイトル">
         </div>
         <div>
             <label for="hardware_type" class="block mb-2 text-sm font-medium text-gray-700">機種</label>

@@ -4,9 +4,19 @@
             {{ __('アカウント') }}
         </h2>
     </x-slot>
-    <div x-data="{ editOpen : false, deleteOpen: false, data : {}, deleteData: {}, activeTab: 1 }" class="py-12">
+    <div x-data="{  editOpen : @js(old('report_id', false)), 
+                    deleteOpen: false, 
+                    data : {
+                        id: @js(old('report_id')), 
+                        game_id: @js(old('game_id')), 
+                        status_id: @js(old('status_id')), 
+                        start_at: @js(old('start_at')), 
+                        end_at: @js(old('end_at')), 
+                        memo: @js(old('memo'))
+                    }, 
+                    deleteData: {}, 
+                    activeTab: 1 }" class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-error-message />
             <div class="">
                 {{-- アカウント画像 --}}
                 <div class="bg-gray-200 rounded-full w-28 h-28 mx-auto">
