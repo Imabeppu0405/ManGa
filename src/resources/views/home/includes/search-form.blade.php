@@ -8,7 +8,7 @@
             <div class="mx-2">
                 <label for="hardware_type" class="block mb-2 text-sm font-medium text-gray-700 w-40">機種</label>
                 <select id="hardware_type" name="hardware_type" class="bg-gray-100 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
-                    <option value="">-</option>
+                    <option value=""></option>
                     @foreach(config("const.hardware_list") as $key => $hardware_list_item)
                         <option value="{{ $key }}" {{ $search_param['hardware_type'] == $key ? 'selected' : '' }}>{{ $hardware_list_item }}</option>
                     @endforeach
@@ -17,7 +17,7 @@
             <div class="mx-2">
                 <label for="category_id" class="block mb-2 text-sm font-medium text-gray-700 w-40">カテゴリ</label>
                 <select id="category_id" name="category_id" class="bg-gray-100 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
-                    <option value="">-</option>
+                    <option value=""></option>
                     @foreach(config("const.category_list") as $key => $category_list_item)
                         <option value="{{ $key }}" {{ $search_param['category_id'] == $key ? 'selected' : '' }}>{{ $category_list_item }}</option>
                     @endforeach
