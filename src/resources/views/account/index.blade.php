@@ -4,7 +4,7 @@
             {{ __('アカウント') }}
         </h2>
     </x-slot>
-    <div x-data="{  editOpen : @js(old('report_id', false)), 
+    <div x-cloak x-data="{  editOpen : @js(old('report_id', false)), 
                     deleteOpen: false, 
                     data : {
                         id: @js(old('report_id')), 

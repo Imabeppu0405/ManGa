@@ -13,6 +13,10 @@
         <script src="https://kit.fontawesome.com/e2e0e6548f.js" crossorigin="anonymous"></script>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <style>
+            [x-cloak] { display: none !important; }
+        </style>
     </head>
     <body class="font-sans antialiased text-gray-700">
         <div class="min-h-screen bg-gray-100">

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div x-data="{  editOpen : @js(old('id', false)), 
+    <div x-cloak x-data="{  editOpen : @js(old('id', false)), 
                     data : {
                         id: @js(old('id')),  
                         title: @js(old('title')), 

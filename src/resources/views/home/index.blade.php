@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div x-data="{ editOpen : @js(boolval(old('game_id'))), id : @js(old('game_id', '')) }" class="py-12">
+    <div x-cloak x-data="{ editOpen : @js(boolval(old('game_id'))), id : @js(old('game_id', '')) }" class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if(!(old('game_id')))
                 <x-error-message />
