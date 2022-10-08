@@ -14,19 +14,13 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        {{-- @isset($scripts)
-            @foreach($scripts as $script)
-                @vite(['resources/' . $script])
-            @endforeach
-        @endisset --}}
+        <script src="{{ asset('/js/test.js') }}"></script>
+        @stack('scripts')
         <style>
             [x-cloak] { display: none !important; }
         </style>
     </head>
     <body class="font-sans antialiased text-gray-700">
-        {{-- @php
-            dd($scripts)
-        @endphp --}}
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
