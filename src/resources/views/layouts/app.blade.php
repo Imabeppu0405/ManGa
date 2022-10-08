@@ -11,8 +11,14 @@
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
         <!-- Icon -->
         <script src="https://kit.fontawesome.com/e2e0e6548f.js" crossorigin="anonymous"></script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="{{ asset('/js/test.js') }}"></script>
+        @stack('scripts')
+        <style>
+            [x-cloak] { display: none !important; }
+        </style>
     </head>
     <body class="font-sans antialiased text-gray-700">
         <div class="min-h-screen bg-gray-100">

@@ -5,13 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Game\GameSearchRequest;
 use App\Http\Requests\Game\MstGameDeleteRequest;
 use App\Http\Requests\Game\MstGameSaveRequest;
-use App\Models\Game;
-use Illuminate\Http\Request;
+use App\Repositories\GameRepository;
+use App\Repositories\ReportRepository;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller
 {
+    private GameRepository $gameRepository;
+    private ReportRepository $reportRepository;
+
+    public function __construct(GameRepository $gameRepository, ReportRepository $reportRepository)
+    {
+        $this->GameRepository   = $gameRepository;
+        $this->ReportRepository = $reportRepository;
+    }
+
     /**
      * home画面の表示
      *
@@ -20,45 +28,11 @@ class GameController extends Controller
      */
     public function index(GameSearchRequest $request)
     {
-        // 検索条件の取得
         $title         = $request->input('title');
         $category_id   = $request->input('category_id');
         $hardware_type = $request->input('hardware_type');
 
-        $query = Game::query();
-
-        // 一覧取得のベースのクエリを作成
-        $query->leftJoin('reports', function ($join) {
-                $join->on('games.id', '=', 'reports.game_id')
-                    ->where('reports.user_id', '=', Auth::id());
-            })
-            ->orderBy('reports.status_id')
-            ->orderBy('games.id', 'DESC');
-        
-        // 検索内容で絞り込む
-        if($title) {
-            $query->where('games.title', 'LIKE', '%'.$title.'%');
-        }
-
-        if($category_id) {
-            $query->where('games.category_id', 'LIKE', $category_id);
-        }
-
-        if($hardware_type) {
-            $query->where('games.hardware_type', 'LIKE', $hardware_type);
-        }
-
-        $games = $query->select('games.*', 'reports.status_id')->get();
-
-        // sql(title=オ, category_id=2でAuth::id=1の人が検索した場合のSQL)
-        // SELECT g.*, r.id FROM games as g
-        //     LEFT JOIN reports as r 
-        //         ON g.id = r.id 
-        //         AND r.user_id = 1 
-        //     WHERE g.title LIKE '%オ%'
-        //         AND g.category_id LIKE 2 
-        //     ORDER BY r.status_id, g.id DESC;
-
+        $games = $this->GameRepository->search($title, $category_id, $hardware_type, Auth::id());
         $data = [
             'games'        => $games,
             'search_param' => [
@@ -71,16 +45,33 @@ class GameController extends Controller
     }
 
     /**
+     * ゲーム詳細画面の表示
+     *
+     * @param int $id
+     * @return view
+     */
+    public function show(int $id)
+    {
+        $game = $this->GameRepository->getOne($id);
+        $user_id = Auth::id();
+        $isRepoted = $this->ReportRepository->isReported($game->id, $user_id);
+
+        $data = [
+            'game'       => $game,
+            'reports'    => $this->ReportRepository->getListByGameId($id, Auth::id()),
+            'isReported' => $isRepoted
+        ];
+        return view('show.game.index', $data);
+    }
+
+    /**
      * ゲーム管理画面の表示
      *
      * @return view
      */
     public function mstIndex()
     {
-        $games = DB::table('games')
-            ->orderBy('deleted_at')
-            ->orderBy('id', 'DESC')
-            ->get();
+        $games = $this->GameRepository->getListWithLeft('DESC');
         $data = [
             'games' => $games,
         ];
@@ -95,9 +86,10 @@ class GameController extends Controller
      */
     public function save(MstGameSaveRequest $request)
     {
-        Game::updateOrCreate(['id' => $request->input('id')], [
+        $this->GameRepository->updateOrCreate('id', $request->input('id'), [
             'title'         => $request->input('title'),
             'link'          => $request->input('link'),
+            'steam_id'      => $request->input('steam_id'),
             'hardware_type' => $request->input('hardware_type'),
             'category_id'   => $request->input('category_id'),
         ]);
@@ -114,7 +106,7 @@ class GameController extends Controller
     public function delete(MstGameDeleteRequest $request)
     {
         $id = $request->input('id');
-        Game::where('id', $id)->delete();
+        $this->GameRepository->delete('id', $id);
         return back();
     }
 }

@@ -32,7 +32,7 @@ class GameSearchRequest extends FormRequest
             'hardware_type' => [
                 'nullable',
                 'integer',
-                Rule::in(array_keys(config('const.category_list')))
+                Rule::in(array_keys(config('const.hardware_list')))
             ],
             'category_id'   => [
                 'nullable',

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 60);
             $table->string('link', 255)->nullable()->default(null);
+            $table->integer('steam_id')->nullable()->default(null);
             $table->tinyInteger('hardware_type')->default(null);
             $table->tinyInteger('category_id')->default(null);
             $table->timestamps();

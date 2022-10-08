@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Report\ReportDeleteRequest;
 use App\Http\Requests\Report\ReportSaveRequest;
-use App\Models\Report;
+use App\Repositories\ReportRepository;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
+    private ReportRepository $reportRepository;
+
+    public function __construct(ReportRepository $reportRepository)
+    {
+        $this->ReportRepository = $reportRepository;
+    }
     /**
      * アカウント画面の表示
      *
@@ -17,27 +22,12 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $reports = Report::query()
-            ->join('games', function ($join) {
-                $join->on('reports.game_id', '=', 'games.id')
-                    ->where('reports.user_id', '=', Auth::id());
-            })
-            ->orderBy('reports.id', 'DESC')
-            ->select('reports.*', 'games.title', 'games.link', 'games.hardware_type', 'games.category_id')
-            ->get();
-            
-        //sql(user_id = 1の場合)
-        // SELECT r.*, g.title, g.link, g.hardware_type, g.category_id FROM reports as r
-        //     JOIN games as g 
-        //         ON r.id = g.id and r.user_id = 1 
-        //     ORDER BY r.id DESC;
+        $reports = $this->ReportRepository->getListByUserId(Auth::id());
 
         // status_idによって分類する
         $favorite_reports = $reports->where('status_id', 1);
         $stack_reports    = $reports->where('status_id', 2);
         $clear_reports    = $reports->where('status_id', 3);
-
-        
 
         $data = [
             'favorite_reports' => $favorite_reports,
@@ -58,7 +48,7 @@ class ReportController extends Controller
      */
     public function save(ReportSaveRequest $request)
     {
-        Report::updateOrCreate(['id' => $request->input('report_id')], [
+        $this->ReportRepository->updateOrCreate('id', $request->input('report_id'), [
             'memo'      => $request->input('memo'),
             'game_id'   => $request->input('game_id'),
             'user_id'   => Auth::id(),
@@ -79,7 +69,7 @@ class ReportController extends Controller
     public function delete(ReportDeleteRequest $request)
     {
         $id = $request->input('id');
-        Report::where('id', $id)->delete();
+        $this->ReportRepository->delete('id', $id);
         return back();
     }
 }

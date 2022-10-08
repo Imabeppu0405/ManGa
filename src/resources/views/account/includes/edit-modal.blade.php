@@ -2,7 +2,10 @@
     <form id="editForm" class="space-y-3" action="report/save" method="POST">
         @csrf
         <div>
-            <label for="status_id" class="block mb-2 text-sm font-medium text-gray-700">ステータス</label>
+            <label for="status_id" class="block mb-2 text-sm font-medium text-gray-700">
+                ステータス
+                <x-required-badge />
+            </label>
             <select id="status_id" name="status_id" class="border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                 <option value="" hidden>選択してください</option>
                 @foreach(config("const.status_list") as $key => $status_list_item)

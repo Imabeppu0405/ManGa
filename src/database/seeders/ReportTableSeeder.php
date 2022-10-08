@@ -28,5 +28,29 @@ class ReportTableSeeder extends Seeder
             'status_id'     => 2,
             'start_at'      => now(),
         ]);
+
+        DB::table('reports')->insert([
+            'memo'          => 'とても感動した',
+            'game_id'       => 2,
+            'user_id'       => 2,
+            'status_id'     => 2,
+            'start_at'      => now(),
+        ]);
+
+        DB::table('reports')->insert([
+            'memo'          => 'とても難しかった',
+            'game_id'       => 1,
+            'user_id'       => 2,
+            'status_id'     => 3,
+            'start_at'      => now(),
+        ]);
+
+        DB::table('reports')->insert([
+            'memo'          => 'ああああああああああああああああああああああああああああああああああああああああああ',
+            'game_id'       => 1,
+            'user_id'       => 3,
+            'status_id'     => 2,
+            'start_at'      => now(),
+        ]);
     }
 }

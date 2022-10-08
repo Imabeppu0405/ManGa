@@ -5,9 +5,11 @@
         </h2>
     </x-slot>
 
-    <div x-data="{ editOpen : false, id : '' }" class="py-12">
+    <div x-cloak x-data="{ editOpen : @js(boolval(old('game_id'))), id : @js(old('game_id', '')) }" class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-error-message />
+            @if(!(old('game_id')))
+                <x-error-message />
+            @endif
             
             @include('home.includes.search-form', [
                 'search_param' => $search_param
@@ -18,7 +20,7 @@
                     @foreach ($games as $game)
                         <div class="m-2 pt-6 px-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
                             <div class="text-center">
-                                <a href="{{ $game->link ?? '#' }}" class="cursol-pointer text-gray-800 hover:text-gray-500">
+                                <a href="{{ route('game.show', ['id'=>$game->id]) }}" class="cursol-pointer text-gray-800 hover:text-gray-500">
                                     <h5 class="mb-1 text-xl tracking-tight">{{ $game->title }}</h5>
                                 </a>
                             </div>
@@ -44,6 +46,6 @@
                 @endif
             </div>
         </div>
-        @include('home.includes.register-modal');
+        @include('includes.register-modal');
     </div>
 </x-app-layout>

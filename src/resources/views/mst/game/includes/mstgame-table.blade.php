@@ -18,7 +18,8 @@
             <thead>
                 <tr>
                 <th class="px-2 py-2 w-12">ID</th>
-                <th class="px-4 py-2 w-1/4">タイトル</th>
+                <th class="px-2 py-2 w-12">SteamID</th>
+                <th class="px-4 py-2 w-80">タイトル</th>
                 <th class="px-4 py-2">リンク</th>
                 <th class="px-4 py-2 w-28">機種</th>
                 <th class="px-4 py-2 w-40">カテゴリ</th>
@@ -29,6 +30,7 @@
                 @foreach($games as $game)
                     <tr class="{{ isset($game->deleted_at) ? 'bg-gray-300' : '' }}">
                         <td class="border px-4 py-2">{{ $game->id }}</td>
+                        <td class="border px-4 py-2">{{ $game->steam_id ?? '-' }}</td>
                         <td class="border px-4 py-2">{{ $game->title }}</td>
                         <td class="border px-4 py-2">
                             <a href="{{ $game->link ?? '#' }}" class="cursol-pointer text-blue-700 hover:text-blue-500">
@@ -47,7 +49,8 @@
                                             title: '{{$game->title}}', 
                                             category_id: '{{$game->category_id}}', 
                                             hardware_type: '{{$game->hardware_type}}', 
-                                            link: '{{$game->link}}'}" 
+                                            link: '{{$game->link}}',
+                                            steam_id: '{{$game->steam_id}}'}" 
                                     class="font-medium border border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white rounded px-4 py-2"
                                     type="button" 
                                     data-modal-toggle="createOrUpdateModal"

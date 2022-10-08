@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -18,6 +17,7 @@ class GamesTableSeeder extends Seeder
         DB::table('games')->insert([
             'title'         => 'gunfire reborn',
             'link'          => 'https://store.steampowered.com/app/1217060/Gunfire_Reborn/?l=japanese',
+            'steam_id'      => 1446780,
             'hardware_type' => 1,
             'category_id'   => 1,
         ]);
