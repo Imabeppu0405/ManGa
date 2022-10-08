@@ -46,7 +46,7 @@
                 </div>
                 <hr>
                 <div>
-                    <p class="mb-3 font-normal text-center text-gray-700 dark:text-gray-400">
+                    <p class="mb-3 font-normal text-center text-gray-700 break-words">
                         @if(isset($report->memo))
                             {{ $report->memo }}
                         @else

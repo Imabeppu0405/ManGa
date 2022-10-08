@@ -23,7 +23,7 @@ window.onload = function(){
                             + news[i]['title']
                             + '</span>'
                             + '</div>'
-                            + '<p class="text-gray-600">'
+                            + '<p class="text-gray-600 break-words">'
                             + omittedText(news[i]['contents'])
                             + '</p>'
                             + '<a href="'
