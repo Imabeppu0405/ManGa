@@ -46,6 +46,6 @@
                 @endif
             </div>
         </div>
-        @include('home.includes.register-modal');
+        @include('includes.register-modal');
     </div>
 </x-app-layout>

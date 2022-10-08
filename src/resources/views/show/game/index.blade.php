@@ -7,7 +7,6 @@
             {{ __('ゲーム詳細') }}
         </h2>
     </x-slot>
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <div x-cloak x-data="{ editOpen : @js(boolval(old('game_id'))), id : @js(old('game_id', '')) }" class="py-12">
         <div class="m-2 p-6 w-5/6 bg-white rounded-lg border border-gray-200 shadow-md mx-auto">
@@ -25,8 +24,10 @@
                     <span>現在の記録登録数：</span>
                     <span class="text-4xl font-bold">{{ count($reports) }}</span>
                 </div>
-                @if (isset($game->status_id))
-                    <div class="px-2 text-gray-500 font-semibold" disabled>登録済：{{ config("const.status_list.{$game->status_id}") }}</div>
+                @if ($isReported)
+                    <button class="bg-white text-gray-500 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                        登録済
+                    </button>
                 @else
                     <button x-on:click="editOpen = true; id='{{$game->id}}'" x-on:click="" class="px-2 py-1 text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-500 hover:text-white" type="button" data-modal-toggle="registerModal">
                         記録を登録する
@@ -67,6 +68,6 @@
             <input id="steamId" type="hidden" name="steam_id" value={{ $game->steam_id }}>
         </div>
         
-        @include('home.includes.register-modal');
+        @include('includes.register-modal');
     </div>
 </x-app-layout>

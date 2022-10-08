@@ -53,10 +53,13 @@ class GameController extends Controller
     public function show(int $id)
     {
         $game = $this->GameRepository->getOne($id);
+        $user_id = Auth::id();
+        $isRepoted = $this->ReportRepository->isReported($game->id, $user_id);
 
         $data = [
-            'game'    => $this->GameRepository->getOne($id),
-            'reports' => $this->ReportRepository->getListByGameId($id, Auth::id()),
+            'game'       => $game,
+            'reports'    => $this->ReportRepository->getListByGameId($id, Auth::id()),
+            'isReported' => $isRepoted
         ];
         return view('show.game.index', $data);
     }

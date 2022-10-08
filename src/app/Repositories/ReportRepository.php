@@ -69,4 +69,19 @@ class ReportRepository extends BaseRepository
             ->select('reports.*', 'users.name')
             ->get();
     }
+    
+    /**
+     * 該当のゲームについて、記録をそのユーザーがもっているかどうか
+     *
+     * @param int $game_id
+     * @param int $user_id
+     * @return Collection
+     */
+    public function isReported($game_id, $user_id)
+    {
+        return Report::query()
+            ->where('game_id', '=', $game_id)
+            ->where('user_id', '=', $user_id)
+            ->exists();
+    }
 }

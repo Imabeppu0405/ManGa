@@ -1,5 +1,5 @@
 <x-edit-modal :label="__('ゲーム記録更登録')">
-    <form id="registerForm" class="space-y-6" action="report/save" method="POST">
+    <form id="registerForm" class="space-y-6" action="/report/save" method="POST">
         @csrf
         <div>
             <label for="status_id" class="block mb-2 text-sm font-medium text-gray-700">
