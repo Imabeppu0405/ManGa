@@ -5,7 +5,8 @@
                         title: @js(old('title')), 
                         category_id: @js(old('category_id')), 
                         hardware_type: @js(old('hardware_type')), 
-                        link: @js(old('link'))
+                        link: @js(old('link')),
+                        steam_id: @js(old('steam_id'))
                     }, 
                     deleteOpen : false, 
                     deleteData : {} }" 

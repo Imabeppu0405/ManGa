@@ -91,6 +91,7 @@ class GameController extends Controller
         $this->GameRepository->updateOrCreate('id', $request->input('id'), [
             'title'         => $request->input('title'),
             'link'          => $request->input('link'),
+            'steam_id'      => $request->input('steam_id'),
             'hardware_type' => $request->input('hardware_type'),
             'category_id'   => $request->input('category_id'),
         ]);

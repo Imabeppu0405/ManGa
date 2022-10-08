@@ -44,6 +44,10 @@ class MstGameSaveRequest extends FormRequest
                 'url',
                 'max:255'
             ],
+            'steam_id'      => [
+                'nullable',
+                'integer'
+            ],
         ];
 
         if($this->id) {

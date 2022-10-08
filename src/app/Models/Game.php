@@ -16,6 +16,7 @@ class Game extends Model
     protected $fillable = [
         'title',
         'link',
+        'steam_id',
         'hardware_type',
         'category_id',
     ];
