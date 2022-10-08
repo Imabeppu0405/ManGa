@@ -52,18 +52,19 @@ class ReportRepository extends BaseRepository
     }
 
     /**
-     * ゲームIDに基づいてゲーム記録のリストを取得する
+     * ゲームIDに基づいて特定のユーザーを除くゲーム記録のリストを取得する
      *
      * @param int $game_id
      * @return Collection
      */
-    public function getListByGameId($game_id)
+    public function getListByGameId($game_id, $user_id)
     {
         return Report::query()
             ->join('users', function ($join) {
                 $join->on('reports.user_id', '=', 'users.id');
             })
             ->where('game_id', '=', $game_id)
+            ->where('user_id', '!=', $user_id)
             ->orderBy('id', 'DESC')
             ->select('reports.*', 'users.name')
             ->get();

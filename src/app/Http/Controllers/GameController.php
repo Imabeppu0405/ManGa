@@ -56,7 +56,7 @@ class GameController extends Controller
 
         $data = [
             'game'    => $this->GameRepository->getOne($id),
-            'reports' => $this->ReportRepository->getListByGameId($id),
+            'reports' => $this->ReportRepository->getListByGameId($id, Auth::id()),
         ];
         return view('show.game.index', $data);
     }
