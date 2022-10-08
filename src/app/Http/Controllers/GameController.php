@@ -6,15 +6,18 @@ use App\Http\Requests\Game\GameSearchRequest;
 use App\Http\Requests\Game\MstGameDeleteRequest;
 use App\Http\Requests\Game\MstGameSaveRequest;
 use App\Repositories\GameRepository;
+use App\Repositories\ReportRepository;
 use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
     private GameRepository $gameRepository;
+    private ReportRepository $reportRepository;
 
-    public function __construct(GameRepository $gameRepository)
+    public function __construct(GameRepository $gameRepository, ReportRepository $reportRepository)
     {
-        $this->GameRepository = $gameRepository;
+        $this->GameRepository   = $gameRepository;
+        $this->ReportRepository = $reportRepository;
     }
 
     /**
@@ -39,6 +42,28 @@ class GameController extends Controller
             ]
         ];
         return view('home.index', $data);
+    }
+
+    /**
+     * ゲーム詳細画面の表示
+     *
+     * @param int $id
+     * @return view
+     */
+    public function show(int $id)
+    {
+        $appId = 1446780;
+        // ゲームニュースの取得
+        $url = "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=" . $appId . "&count=3";
+        $json = mb_convert_encoding(file_get_contents($url), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+        $news = json_decode($json,true);
+
+        $data = [
+            'game'    => $this->GameRepository->getOne($id),
+            'reports' => $this->ReportRepository->getListByGameId($id),
+            'news'    => $news['appnews']['newsitems']
+        ];
+        return view('show.game.index', $data);
     }
 
     /**

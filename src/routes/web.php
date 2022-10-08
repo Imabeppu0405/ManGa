@@ -26,6 +26,8 @@ Route::get('/dashboard', function () {
 Route::group(['middleware' => ['auth']], function () {
     // ゲーム一覧画面
     Route::get('/home', [GameController::class, 'index'])->name('home');
+    // ゲーム詳細画面
+    Route::get('/show/{id}', [GameController::class, 'show'])->name('game.show');
     // ゲーム管理画面
     Route::get('/mst/game', [GameController::class, 'mstIndex'])->name('mst/game');
     // ゲーム保存

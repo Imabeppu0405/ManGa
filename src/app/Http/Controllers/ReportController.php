@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Report\ReportDeleteRequest;
 use App\Http\Requests\Report\ReportSaveRequest;
-use App\Models\Report;
 use App\Repositories\ReportRepository;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {

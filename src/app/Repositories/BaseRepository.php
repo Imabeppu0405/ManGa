@@ -20,4 +20,17 @@ abstract class BaseRepository
             ->orderBy($sortColumn, $sortOrder)
             ->get();
     }
+
+    /**
+     * idで指定した値を１件取得する
+     *
+     * @param string $id
+     * @return array
+     */
+    public function getOne($id)
+    {
+        return DB::table($this->table)
+            ->where('id', $id)
+            ->first();
+    }
 }

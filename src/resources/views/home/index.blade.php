@@ -20,7 +20,7 @@
                     @foreach ($games as $game)
                         <div class="m-2 pt-6 px-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
                             <div class="text-center">
-                                <a href="{{ $game->link ?? '#' }}" class="cursol-pointer text-gray-800 hover:text-gray-500">
+                                <a href="{{ route('game.show', ['id'=>$game->id]) }}" class="cursol-pointer text-gray-800 hover:text-gray-500">
                                     <h5 class="mb-1 text-xl tracking-tight">{{ $game->title }}</h5>
                                 </a>
                             </div>

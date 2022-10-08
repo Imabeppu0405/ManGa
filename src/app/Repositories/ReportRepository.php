@@ -50,4 +50,22 @@ class ReportRepository extends BaseRepository
             ->select('reports.*', 'games.title', 'games.link', 'games.hardware_type', 'games.category_id')
             ->get();
     }
+
+    /**
+     * ゲームIDに基づいてゲーム記録のリストを取得する
+     *
+     * @param int $game_id
+     * @return Collection
+     */
+    public function getListByGameId($game_id)
+    {
+        return Report::query()
+            ->join('users', function ($join) {
+                $join->on('reports.user_id', '=', 'users.id');
+            })
+            ->where('game_id', '=', $game_id)
+            ->orderBy('id', 'DESC')
+            ->select('reports.*', 'users.name')
+            ->get();
+    }
 }
