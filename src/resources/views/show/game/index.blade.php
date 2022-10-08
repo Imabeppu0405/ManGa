@@ -1,10 +1,14 @@
-<x-app-layout>
+@php
+$scripts = ['js/pages/steamApi.js'];
+@endphp
+<x-app-layout scripts="$script">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('ゲーム詳細') }}
         </h2>
     </x-slot>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <div x-cloak x-data="{ editOpen : @js(boolval(old('game_id'))), id : @js(old('game_id', '')) }" class="py-12">
         <div class="m-2 p-6 w-5/6 bg-white rounded-lg border border-gray-200 shadow-md mx-auto">
             <div class="text-center flex justify-center">
@@ -33,26 +37,12 @@
                 <div class="border-b-4 border-indigo-500 mx-auto w-64 mb-5">
                     <h2 class="mb-1 text-3xl tracking-tight text-center">News</h2>
                 </div>
-                <div class="flex flex-wrap justify-center">
-                    @foreach($news as $new)
-                        <div class="flex flex-col border rounded-lg gap-3 p-4 md:p-6 m-2 w-96">
-                            <div>
-                                <span class="block text-sm md:text-base font-bold">{{ $new['title'] }}</span>
-                                <span class="block text-gray-500 text-sm">August 28, 2021</span>
-                            </div>
-                    
-                            <p class="text-gray-600">{{ Str::limit($new['contents'], 100, '...') }}</p>
-                            <a href="{{ $new['url'] }}" target="_blank" class="text-white bg-indigo-500 hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center w-1/2">
-                                Read more
-                                <svg class="-mr-1 ml-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                            </a>
-                        </div>
-                    @endforeach
+                <div id="newsCont" class="flex flex-wrap justify-center">
                 </div>
             </div>
             <div class="pt-10">
                 <div class="border-b-4 border-indigo-500 mx-auto w-64 mb-5">
-                    <h2 class="mb-1 text-3xl tracking-tight text-center">みんなの記録</h2>
+                    <h2 class="mb-1 text-3xl tracking-tight text-center ">みんなの記録</h2>
                 </div>
                 <div class="flex flex-wrap justify-center">
                     @if ($reports->isNotEmpty())
@@ -68,14 +58,77 @@
                             </div>
                         @endforeach
                     @else
-                        <div class="p-6">
+                        <div class="p-6 text-xl h-40">
                             登録されている記録はありません
                         </div>
                     @endif
                 </div>
             </div>
+            <input id="steamId" type="hidden" name="steam_id" value={{ $game->steam_id }}>
         </div>
         
         @include('home.includes.register-modal');
     </div>
+    <script>
+        window.onload = function(){
+            const postData = new FormData;
+            postData.set('steam_id', document.getElementById('steamId').value); 
+
+            fetch('/api/getNews', {
+                method: 'POST',
+                headers: {'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content},
+                body: postData
+            })
+                .then(response => response.json())
+                .then(response => {
+                    if(response.length) {
+                        // News情報が取得できた場合
+                        const news = JSON.parse(response)['appnews']['newsitems'];
+                        const newsCont = document.getElementById('newsCont');
+
+                        // 各News情報の表示
+                        let newsItems = '';
+                        for (let i = 0 ; i < news.length ; i++){
+                            newsItems += '<div class="flex flex-col border rounded-lg gap-3 p-4 md:p-6 m-2 w-96">'
+                                    + '<div>'
+                                    + '<span class="block text-sm md:text-base font-bold">' 
+                                    + news[i]['title']
+                                    + '</span>'
+                                    + '</div>'
+                                    + '<p class="text-gray-600">'
+                                    + omittedText(news[i]['contents'])
+                                    + '</p>'
+                                    + '<a href="'
+                                    +  news[i]['url']
+                                    + '" target="_blank" class="text-white bg-indigo-500 hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center w-1/2">'
+                                    + 'Read more'
+                                    + '<svg class="-mr-1 ml-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>'
+                                    + '</a>'
+                                    + '</div>';
+                        }
+                        newsCont.innerHTML = newsItems;
+                    } else {
+                        // News情報が取得できなかった場合
+                        newsCont.innerHTML = '<div class="p-6 text-xl h-40">ニュースを取得できませんでした</div>';
+                    }
+                })
+                .catch(error => {
+                    // エラー時
+                    newsCont.innerHTML = '<div class="p-6 text-xl h-40">ニュースを取得できませんでした</div>';
+                });
+        }
+
+        function omittedText(string) {
+            // HTMLタグは不要なため削除
+            string = string.replace(/(<([^>]+)>)/gi, '');
+            const MAX_LENGTH = 100;
+
+            // 文字数がMAX_LENGTHより大きい場合、それ以上は削除し末尾に...を付け足して返す。
+            if (string.length > MAX_LENGTH) {
+                return string.substr(0, MAX_LENGTH) + '...';
+            }
+            //　文字数がオーバーしていなければそのまま返す
+            return string;
+        }
+    </script>
 </x-app-layout>

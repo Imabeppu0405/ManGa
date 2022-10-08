@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\SteamApiController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [GameController::class, 'index'])->name('home');
     // ゲーム詳細画面
     Route::get('/show/{id}', [GameController::class, 'show'])->name('game.show');
+    // ゲームNews取得
+    Route::post('/api/getNews', [SteamApiController::class, 'getNews'])->name('getNews');
     // ゲーム管理画面
     Route::get('/mst/game', [GameController::class, 'mstIndex'])->name('mst/game');
     // ゲーム保存

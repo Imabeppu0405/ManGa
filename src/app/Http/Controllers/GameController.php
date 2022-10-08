@@ -52,16 +52,11 @@ class GameController extends Controller
      */
     public function show(int $id)
     {
-        $appId = 1446780;
-        // ゲームニュースの取得
-        $url = "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=" . $appId . "&count=3";
-        $json = mb_convert_encoding(file_get_contents($url), 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
-        $news = json_decode($json,true);
+        $game = $this->GameRepository->getOne($id);
 
         $data = [
             'game'    => $this->GameRepository->getOne($id),
             'reports' => $this->ReportRepository->getListByGameId($id),
-            'news'    => $news['appnews']['newsitems']
         ];
         return view('show.game.index', $data);
     }
