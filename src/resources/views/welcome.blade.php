@@ -1,5 +1,4 @@
 <x-app-layout>
-    <?php echo test == 1 ?>
     <div class="py-12">
         <div class="flex flex-col items-center">
             <div class="max-w-xl flex flex-col items-center text-center pt-8 lg:pt-32 pb-16 lg:pb-48">
