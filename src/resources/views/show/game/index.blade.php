@@ -1,6 +1,6 @@
 <x-app-layout scripts="$script">
     @push('scripts')
-        @vite(['resources/js/api/steamApi.js'])
+        @vite(['resources/js/api/steamApi.js', 'resources/js/api/translationApi.js'])
     @endpush
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">

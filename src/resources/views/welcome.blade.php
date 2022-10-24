@@ -1,5 +1,4 @@
 <x-app-layout>
-    <?php echo test == 1 ?>
     <div class="py-12">
         <div class="flex flex-col items-center">
             <div class="max-w-xl flex flex-col items-center text-center pt-8 lg:pt-32 pb-16 lg:pb-48">
@@ -16,7 +15,7 @@
                     </div>
                 </div>
 
-                <p class="pt-6 text-gray-600 text-lg">ManGaはステータスごとにあなたのゲームを管理するWebアプリケーションです。(りりーすてすと)</p>
+                <p class="pt-6 text-gray-600 text-lg">ManGaはステータスごとにあなたのゲームを管理するWebアプリケーションです。</p>
               </div>
         </div>
     </div>
