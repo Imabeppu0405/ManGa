@@ -66,3 +66,20 @@ exit
 sudo chmod 777 -R src/storage
 ```
 
+## SSL化の手順
+### ドメイン名設定
+1. ドメイン名を購入(mangaapp.click)  
+2. Router53にドメイン名を登録。
+### ssh化
+1. ACMでSSL証明書を作成する
+1. ロードバランサー用のターゲットグループを作成
+2. ロードバランサーを作成し、証明書を紐付ける
+3. ロードバランサーからの接続のみを許可するようにインスタンスのセキュリティグループのインバウントルールを変更
+
+### 参考
+- https://dev.classmethod.jp/articles/aws-web-server-https-for-beginner/
+- https://qiita.com/himorishuhei/items/7426cab6cd83c3d8e4e3
+
+### AWS構成図
+![image](https://user-images.githubusercontent.com/72291454/202555179-c5ca2497-db1c-4a54-a8e4-2841bdb7a686.png)
+
